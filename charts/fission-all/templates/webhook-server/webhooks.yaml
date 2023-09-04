@@ -16,7 +16,7 @@ apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
   creationTimestamp: null
-  name: mutating-webhook-configuration
+  name: {{ include "fullname" . }}
   {{- if $certManagerEnabled }}
   annotations:
     cert-manager.io/inject-ca-from: "{{ .Release.Namespace }}/fission-webhook-cert"
@@ -43,13 +43,19 @@ webhooks:
     resources:
     - packages
   sideEffects: None
+  namespaceSelector:
+    matchExpressions:
+      - key: name
+        operator: In
+        values:
+        {{- include "fission-monitored-namespaces" . | indent 8 }}
 ---
 
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
   creationTimestamp: null
-  name: validating-webhook-configuration
+  name: {{ include "fullname" . }}
   {{- if $certManagerEnabled }}
   annotations:
     cert-manager.io/inject-ca-from: "{{ .Release.Namespace }}/fission-webhook-cert"
@@ -75,6 +81,12 @@ webhooks:
     resources:
     - environments
   sideEffects: None
+  namespaceSelector:
+    matchExpressions:
+      - key: name
+        operator: In
+        values:
+        {{- include "fission-monitored-namespaces" . | indent 8 }}
 - admissionReviewVersions:
   - v1
   clientConfig:
@@ -96,6 +108,12 @@ webhooks:
     resources:
     - functions
   sideEffects: None
+  namespaceSelector:
+    matchExpressions:
+      - key: name
+        operator: In
+        values:
+        {{- include "fission-monitored-namespaces" . | indent 8 }}
 - admissionReviewVersions:
   - v1
   clientConfig:
@@ -117,6 +135,12 @@ webhooks:
     resources:
     - httptriggers
   sideEffects: None
+  namespaceSelector:
+    matchExpressions:
+      - key: name
+        operator: In
+        values:
+        {{- include "fission-monitored-namespaces" . | indent 8 }}
 - admissionReviewVersions:
   - v1
   clientConfig:
@@ -138,6 +162,12 @@ webhooks:
     resources:
     - kuberneteswatchtriggers
   sideEffects: None
+  namespaceSelector:
+    matchExpressions:
+      - key: name
+        operator: In
+        values:
+        {{- include "fission-monitored-namespaces" . | indent 8 }}
 - admissionReviewVersions:
   - v1
   clientConfig:
@@ -159,6 +189,12 @@ webhooks:
     resources:
     - messagequeuetriggers
   sideEffects: None
+  namespaceSelector:
+    matchExpressions:
+      - key: name
+        operator: In
+        values:
+        {{- include "fission-monitored-namespaces" . | indent 8 }}
 - admissionReviewVersions:
   - v1
   clientConfig:
@@ -180,6 +216,12 @@ webhooks:
     resources:
     - packages
   sideEffects: None
+  namespaceSelector:
+    matchExpressions:
+      - key: name
+        operator: In
+        values:
+        {{- include "fission-monitored-namespaces" . | indent 8 }}
 - admissionReviewVersions:
   - v1
   clientConfig:
@@ -201,3 +243,9 @@ webhooks:
     resources:
     - timetriggers
   sideEffects: None
+  namespaceSelector:
+    matchExpressions:
+      - key: name
+        operator: In
+        values:
+        {{- include "fission-monitored-namespaces" . | indent 8 }}

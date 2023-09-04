@@ -103,6 +103,19 @@ This template generates the image name for the deployment depending on the value
 {{- end }}
 {{- end }}
 
+{{- define "fission-monitored-namespaces" }}
+- {{ .Values.defaultNamespace }}
+{{- if .Values.builderNamespace }}
+- {{ .Values.builderNamespace }}
+{{- end }}
+{{- if .Values.functionNamespace }}
+- {{ .Values.functionNamespace }}
+{{- end }}
+{{- range .Values.additionalFissionNamespaces }}
+- {{ . }}
+{{- end }}
+{{- end }}
+
 {{/*
 Define the svc's name
 */}}
