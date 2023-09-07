@@ -58,7 +58,7 @@ metadata:
   namespace: {{ .namespace }}
 subjects:
   - kind: ServiceAccount
-    name: "fission-{{ .component }}"
+    name: {{ include "fission.component-service-account" . }}
     namespace: {{ .Release.Namespace }}
 roleRef:
   kind: Role

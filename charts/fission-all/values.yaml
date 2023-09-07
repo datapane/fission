@@ -445,6 +445,7 @@ storagesvc:
   ##      memory: <tbd>
   ##
   resources: {}
+  serviceAccount: ""
 
   ## Archive pruner removes archives from storage which are not referenced by any package.
   archivePruner:

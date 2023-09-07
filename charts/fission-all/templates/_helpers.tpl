@@ -138,3 +138,11 @@ Define the svc's name
 {{- printf "%s" .Values.defaultNamespace -}}
 {{- end -}}
 {{- end -}}
+
+{{- define "fission.component-service-account" -}}
+{{- if eq "storagesvc" .component -}}
+{{- coalesce .Values.storagesvc.serviceAccount "fission-storagesvc"  -}}
+{{- else -}}
+{{- printf "fission-%s" .component  -}}
+{{- end -}}
+{{- end -}}
