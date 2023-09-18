@@ -465,6 +465,10 @@ storagesvc:
     runAsUser: 10001
     runAsGroup: 10001
 
+  ## Pod Annotations
+  ## Extra annotations to be added to the Pod Template Spec of the Storage Service
+  podAnnotations: {}
+
 ## The timer works like kubernetes CronJob but instead of creating a pod to do the task
 ## It sends a request to router to invoke the function.
 ##

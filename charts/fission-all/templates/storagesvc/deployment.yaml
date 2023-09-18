@@ -21,6 +21,9 @@ spec:
         prometheus.io/scrape: "true"
         prometheus.io/path: "/metrics"
         prometheus.io/port: "8080"
+        {{- if .Values.storagesvc.podAnnotations }}
+        {{ toYaml .Values.storagesvc.podAnnotations | nindent 8 }}
+        {{- end }}
     spec:
       {{- if .Values.storagesvc.securityContext.enabled }}
       securityContext: {{- omit .Values.storagesvc.securityContext "enabled" | toYaml | nindent 8 }}
